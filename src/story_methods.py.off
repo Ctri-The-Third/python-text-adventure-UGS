@@ -4,22 +4,7 @@ import time
 def intro():
 
 
-    time.sleep(1)
-    print(
-        """  A. Grab the bucket and throw it at the minion
-  B. grab a stick and poke the miRnion
-  C. Run"""
-    )
-    choice = input(">>> ")  # Here is your first choice.
-    if choice in answer_A:
-        option_bucket()
-    elif choice in answer_B:
-        option_stick()
-    elif choice in answer_C:
-        print("\nWelp, that was quick. " "\n\nYou died!")
-    else:
-        print(required)
-        intro()
+    
 
 
 def option_bucket():

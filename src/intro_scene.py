@@ -1,6 +1,7 @@
 import math
 from src.scene import Scene
 from src.minion_scene import MinionScene
+from datetime import datetime
 
 import time
 
@@ -28,10 +29,13 @@ class DeathScene(Scene):
     def __init__(self, player: dict, cause: str, epitath: str) -> None:
         super().__init__(player)
         self.cause = cause
-        player_name_fomatted = player.get("name", "John doe")[0:30]
-        padding_l = math.floor((30 - player_name_fomatted) / 2)
-        padding_r = math.ceil((30 - player.get()))
-        player_name_fomatted = f"{padding_l}{player_name_fomatted}{padding_r}"
+        self.epitath = epitath
+
+    def display(self) -> None:
+        player_name = _center_and_trim(self.player.get("name", "John Doe"))
+        epitath = _center_and_trim(self.epitath, 28)
+        cause_of_death = _center_and_trim(self.cause)
+        death_date = datetime.strftime(datetime.now(), "%y-%b-%d")
         print(
             f"""
                   _____  _____
@@ -42,11 +46,11 @@ class DeathScene(Scene):
                  |  | \ | |   |
                  |            |
   ______.______%_|            |__________  _____
-_/   {player_name_fomatted}              \|     |
+_/   {player_name}   \|     |
 |     {epitath}                                 <
 |_____.-._________             ____/|___________|
                  |            |
-                 | + {death_date} |
+                 | +{death_date} |
                  |            |
                  |            |
                  |   _        <
@@ -61,4 +65,10 @@ _/   {player_name_fomatted}              \|     |
         {cause_of_death} """
         )
 
-    def _center_and_trim(text:str) -> str:
+
+def _center_and_trim(text: str, max_len: int = 30) -> str:
+    out_str = text("name", "John doe")[0:max_len]
+    padding_l = math.floor((max_len - text) / 2)
+    padding_r = math.ceil((max_len - text))
+    out_str = f"{padding_l}{out_str}{padding_r}"
+    return out_str

@@ -2,12 +2,11 @@ from abc import abstractmethod
 
 
 class Scene:
-    def __init__(self, player:dict) -> None:
+    def __init__(self, player: dict) -> None:
         self.player = player
-        pass
 
     @abstractmethod
-    def display(self) - None:
+    def display(self) -> None:
         "displays the intro scene"
         raise NotImplementedError
 

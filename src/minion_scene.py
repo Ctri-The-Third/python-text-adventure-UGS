@@ -1,4 +1,5 @@
 from src.scene import Scene
+import src.intro_scene as intro_scenes
 import time
 
 
@@ -60,13 +61,20 @@ class MinionScene(Scene):
     def get_next_scene(self):
 
         if self.choice == self.valid_answers[0]:  # A
-            return BucketScene()
+            return BucketScene(self.player)
         elif self.choice == self.valid_answers[1]:
-            return StickScene()
+            return StickScene(self.player)
         elif self.choice == self.valid_answers[2]:
-            return DeathScene("The 4 legged minion easily chases you down!")
+            return intro_scenes.DeathScene(
+                "The 4 legged minion easily chases you down!"
+            )
 
 
 class BucketScene(Scene):
+    def __init__(self, player: dict) -> None:
+        super().__init__(player)
+
+
+class StickScene(Scene):
     def __init__(self, player: dict) -> None:
         super().__init__(player)
