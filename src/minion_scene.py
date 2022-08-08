@@ -1,6 +1,7 @@
 import random
 from src.scene import Scene
 import src.intro_scene as intro_scenes
+import src.river_scenes as river_scenes
 import time
 
 
@@ -111,7 +112,7 @@ you're able to escape whilst it's distracted, but you lose your stick."""
 
     def get_next_scene(self):
         if self.outcome == "VICTORY":
-            return Scene(self.player)
+            return river_scenes.river_scene(self.player)
         elif self.outcome == "FAIL":
             return intro_scenes.DeathScene(
                 self.player,

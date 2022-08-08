@@ -6,7 +6,7 @@ from src.intro_scene import DeathScene, IntroScene
 # The story is broken into sections, starting with "intro"
 player = {}
 player["name"] = "Harold rocksbeater"
-intro_scene = minion_scenes.StickScene(player)
+intro_scene = IntroScene(player)
 intro_scene.display()
 intro_scene.interact()
 next_scene = intro_scene.get_next_scene()
