@@ -1,3 +1,4 @@
+import random
 from src.scene import Scene
 import src.intro_scene as intro_scenes
 import time
@@ -66,7 +67,7 @@ class MinionScene(Scene):
             return StickScene(self.player)
         elif self.choice == self.valid_answers[2]:
             return intro_scenes.DeathScene(
-                "The 4 legged minion easily chases you down!"
+                self.player, "The 4 legged minion easily chases you down!", ""
             )
 
 
@@ -78,3 +79,42 @@ class BucketScene(Scene):
 class StickScene(Scene):
     def __init__(self, player: dict) -> None:
         super().__init__(player)
+        self.victory = False
+        self.outcome = ""
+
+    def display(self) -> None:
+        print(
+            "\nYou pick up the stick and swing at the minion, doing incredible battle"
+        )
+        time.sleep(0.25)
+
+        print("working...")
+        time.sleep(1)
+
+        if random.randint(0, 20) == 1:
+            print("Critical fail! You throw the stick. Maybe it likes to play fetch?")
+            self.outcome = "FAIL"
+        elif random.randint(0, 20) > 5:
+            print(
+                "Victory! You bop the enemy over the head and it pops like a balloon!"
+            )
+            self.outcome = "VICTORY"
+        else:
+            self.outcome = "fail"
+            print(
+                """The creature snatches your stick in its teeth and begins tearing at it! 
+you're able to escape whilst it's distracted, but you lose your stick."""
+            )
+
+    def interact(self) -> None:
+        return
+
+    def get_next_scene(self):
+        if self.outcome == "VICTORY":
+            return Scene(self.player)
+        elif self.outcome == "FAIL":
+            return intro_scenes.DeathScene(
+                self.player,
+                "You dropped your weapon in a fight! It didn't end well.",
+                "Ole slippy fingers",
+            )

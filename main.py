@@ -1,20 +1,12 @@
-import time  # Imports a module to add a pause
+import time
 from src.scene import Scene
-
-# Figuring out how users might respond
-answer_A = ["A", "a"]
-answer_B = ["B", "b"]
-answer_C = ["C", "c"]
-yes = ["Y", "y", "yes"]
-no = ["N", "n", "no"]
-
-playerName = ""
-
-required = "\nUse only A, B, or C\n"  # Cutting down on duplication
+import src.minion_scene as minion_scenes
+from src.intro_scene import DeathScene, IntroScene
 
 # The story is broken into sections, starting with "intro"
-
-intro_scene = Scene()
+player = {}
+player["name"] = "Harold rocksbeater"
+intro_scene = minion_scenes.StickScene(player)
 intro_scene.display()
 intro_scene.interact()
 next_scene = intro_scene.get_next_scene()

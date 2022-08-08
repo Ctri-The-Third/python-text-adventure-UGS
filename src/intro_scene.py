@@ -1,6 +1,6 @@
 import math
 from src.scene import Scene
-from src.minion_scene import MinionScene
+import src.minion_scene as minion_scenes
 from datetime import datetime
 
 import time
@@ -22,7 +22,7 @@ class IntroScene(Scene):
         print(f"We are happy to have you with us {self.player['name']}")
 
     def get_next_scene(self):
-        return MinionScene(self.player)
+        return minion_scenes.MinionScene(self.player)
 
 
 class DeathScene(Scene):
@@ -32,8 +32,8 @@ class DeathScene(Scene):
         self.epitath = epitath
 
     def display(self) -> None:
-        player_name = _center_and_trim(self.player.get("name", "John Doe"))
-        epitath = _center_and_trim(self.epitath, 28)
+        player_name = _center_and_trim(self.player.get("name", "John Doe"), 33)
+        epitath = _center_and_trim(self.epitath, 32)
         cause_of_death = _center_and_trim(self.cause)
         death_date = datetime.strftime(datetime.now(), "%y-%b-%d")
         print(
@@ -47,7 +47,7 @@ class DeathScene(Scene):
                  |            |
   ______.______%_|            |__________  _____
 _/   {player_name}   \|     |
-|     {epitath}                                 <
+|     {epitath}         <
 |_____.-._________             ____/|___________|
                  |            |
                  | +{death_date} |
@@ -65,10 +65,20 @@ _/   {player_name}   \|     |
         {cause_of_death} """
         )
 
+    def interact(self) -> None:
+        time.sleep(1)
+
+        print("Press enter to continue")
+        input(">>> ")
+        return
+
 
 def _center_and_trim(text: str, max_len: int = 30) -> str:
-    out_str = text("name", "John doe")[0:max_len]
-    padding_l = math.floor((max_len - text) / 2)
-    padding_r = math.ceil((max_len - text))
+    out_str = text if text != "" else "John doe"
+    out_str = out_str[0:max_len]
+    padding_l = math.floor((max_len - len(text)) / 2)
+    padding_l = " " * padding_l
+    padding_r = math.ceil((max_len - len(text)) / 2)
+    padding_r = " " * padding_r
     out_str = f"{padding_l}{out_str}{padding_r}"
     return out_str
